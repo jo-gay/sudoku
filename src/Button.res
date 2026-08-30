@@ -1,4 +1,4 @@
-// Styling adapted from https://tailwind-elements.com/docs/standard/components/buttons/
+// Styling adapted from Tailwind Button Component
 let make = props =>
   <button
     {...props}

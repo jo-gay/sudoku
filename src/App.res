@@ -1,18 +1,63 @@
 @react.component
 let make = () => {
-  let values_raw = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
-  let values = React.array(
-    values_raw->Array.map(item => <Button className="m-1">{React.string(item->Int.toString)}</Button>)
-  )
-  // let (count, setCount) = React.useState(() => 0)
+  let values_initial = [0, 0, 0, 0, 0, 0, 8, 0, 9,
+                        0, 0, 5, 0, 0, 7, 0, 2, 3,
+                        0, 0, 0, 0, 5, 0, 1, 6, 0,
+                        0, 0, 0, 0, 0, 2, 7, 0, 0,
+                        5, 2, 0, 3, 0, 0, 0, 8, 1,
+                        0, 0, 7, 0, 9, 0, 0, 0, 0,
+                        9, 0, 0, 1, 0, 3, 0, 0, 8,
+                        0, 3, 0, 0, 0, 8, 0, 0, 0,
+                        0, 0, 6, 0, 0, 0, 0, 0, 0,
+  ]
+  let (values_raw, set_values_raw) = React.useState(_ => values_initial)
+  let updateRawValue = (idx, newValue) => {
+    set_values_raw(oldValues => {
+      let newValues = Belt.Array.copy(oldValues)
+      newValues[idx] = newValue->Int.fromString->Belt.Option.getWithDefault(0)
+      newValues
+    })
+  }
+  let (values_disp, set_values_disp) = React.useState(_=>React.array([]))
+  React.useEffect(() => {
+    set_values_disp(_=> {
+      React.array(values_raw->Array.mapWithIndex(
+        (item, idx) => {
+          let cellstyle = switch (item) {
+              | 1 => "default"
+              | 0 => "unknown"
+              | -1 => "error"
+              | _ => "default"
+          }
+          <Cell key={idx->Int.toString} 
+            value={item->Int.toString}
+            cellstyle={cellstyle}
+            idx={idx}
+            onChange={event => {
+              let newVal = ReactEvent.Form.currentTarget(event)["value"]
+              updateRawValue(idx, newVal)
+            }}
+          />
+        }
+      )
+    )
+  })
+  None
+  }, [values_raw])
 
 
   <div className="max-w-1200">
-    <div className="grid content-start gap-1 grid-cols-5">
-      {values}
+    <div className="grid content-start gap-1 grid-cols-9">
+      {values_disp}
     </div>
     <div className="my-4">
-      <Button onClick={_ => Console.log("Solve button clicked")}>
+      <Button onClick={_ => {
+        let solution = values_raw->Solver.solve
+        Console.log("solution: " ++ Array.join(Array.map(solution, val => val->Int.toString), ", "))
+        set_values_raw(_oldValues=>{
+          Belt.Array.copy(solution)
+        })
+      }}>
         {React.string(`Solve`)}
       </Button>
     </div>
