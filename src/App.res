@@ -30,7 +30,7 @@ let make = () => {
               | _ => "default"
           }
           <Cell key={idx->Int.toString} 
-            value={item->Int.toString}
+            value={item==0 ? "" : item->Int.toString}
             cellstyle={cellstyle}
             idx={idx}
             onChange={event => {

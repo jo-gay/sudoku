@@ -112,7 +112,7 @@ function App(props) {
       }
       return JsxRuntime.jsx(Cell.make, {
         cellstyle: cellstyle,
-        value: item.toString(),
+        value: item === 0 ? "" : item.toString(),
         onChange: event => {
           let newVal = event.currentTarget.value;
           set_values_raw(oldValues => {
