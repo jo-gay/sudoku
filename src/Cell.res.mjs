@@ -18,7 +18,7 @@ function Cell(props) {
     default:
       style_class = "bg-orange-500 text-white";
   }
-  let style_class$1 = style_class + " text-center w-8 border border-gray-700 rounded";
+  let style_class$1 = style_class + " text-center w-7 border border-gray-700 rounded";
   let match = idx % 9;
   let match$1 = idx / 9 | 0;
   let pos_class;
