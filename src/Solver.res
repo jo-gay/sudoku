@@ -85,7 +85,7 @@ let sudoku: sudoku = [
 ]
 
 if sudoku->Array.length !== 81 {
-  raise(Failure("Invalid sudoku"))
+    throw(Failure("Invalid sudoku"))
 }
 
 let rec easyStrategies = sudoku => {
