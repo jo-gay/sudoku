@@ -34,3 +34,26 @@ npm install
 ```sh
 npm run solve
 ```
+
+## Front end
+
+This is a Vite-based browser app with following setup:
+
+- [ReScript](https://rescript-lang.org) 12.0 with @rescript/react, [Core](https://github.com/rescript-association/rescript-core) and JSX v4
+- ES6 modules (ReScript code compiled to `.res.mjs` files)
+- Vite 6 with React Plugin (Fast Refresh)
+- Tailwind 4
+
+## Development
+
+Run ReScript in dev mode:
+
+```sh
+npm run res:dev
+```
+
+In another tab, run the Vite dev server:
+
+```sh
+npm run dev
+```

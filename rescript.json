@@ -6,9 +6,12 @@
   },
   "package-specs": {
     "module": "esmodule",
-    "in-source": false
+    "in-source": true
   },
   "suffix": ".res.mjs",
-  "bs-dependencies": ["@rescript/core"],
-  "bsc-flags": ["-open RescriptCore"]
+  "jsx": { "version": 4 },
+  "dependencies": [
+    "@rescript/react"
+  ],
+  "compiler-flags": []
 }

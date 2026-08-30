@@ -1,135 +1,136 @@
-open Types
+let solve = (sudoku) => {
 
-let sudoku: sudoku = [
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  8,
-  0,
-  9,
-  0,
-  0,
-  5,
-  0,
-  0,
-  7,
-  0,
-  2,
-  3,
-  0,
-  0,
-  0,
-  0,
-  5,
-  0,
-  1,
-  6,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  2,
-  7,
-  0,
-  0,
-  5,
-  2,
-  0,
-  3,
-  0,
-  0,
-  0,
-  8,
-  1,
-  0,
-  0,
-  7,
-  0,
-  9,
-  0,
-  0,
-  0,
-  0,
-  9,
-  0,
-  0,
-  1,
-  0,
-  3,
-  0,
-  0,
-  8,
-  0,
-  3,
-  0,
-  0,
-  0,
-  8,
-  0,
-  0,
-  0,
-  0,
-  0,
-  6,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-]
+// let sudoku: sudoku = [
+//   0,
+//   0,
+//   0,
+//   0,
+//   0,
+//   0,
+//   8,
+//   0,
+//   9,
+//   0,
+//   0,
+//   5,
+//   0,
+//   0,
+//   7,
+//   0,
+//   2,
+//   3,
+//   0,
+//   0,
+//   0,
+//   0,
+//   5,
+//   0,
+//   1,
+//   6,
+//   0,
+//   0,
+//   0,
+//   0,
+//   0,
+//   0,
+//   2,
+//   7,
+//   0,
+//   0,
+//   5,
+//   2,
+//   0,
+//   3,
+//   0,
+//   0,
+//   0,
+//   8,
+//   1,
+//   0,
+//   0,
+//   7,
+//   0,
+//   9,
+//   0,
+//   0,
+//   0,
+//   0,
+//   9,
+//   0,
+//   0,
+//   1,
+//   0,
+//   3,
+//   0,
+//   0,
+//   8,
+//   0,
+//   3,
+//   0,
+//   0,
+//   0,
+//   8,
+//   0,
+//   0,
+//   0,
+//   0,
+//   0,
+//   6,
+//   0,
+//   0,
+//   0,
+//   0,
+//   0,
+//   0,
+// ]
 
-if sudoku->Array.length !== 81 {
-  raise(Failure("Invalid sudoku"))
-}
-
-let rec easyStrategies = sudoku => {
-  let originalSudoku = [...sudoku]
-  let sudoku =
-    sudoku
-    ->Strategies.nakedSingle
-    ->Strategies.hiddenSingle
-
-  if originalSudoku == sudoku {
-    sudoku
-  } else {
-    easyStrategies(sudoku)
+  if sudoku->Array.length !== 81 {
+    throw(Failure("Invalid sudoku"))
   }
-}
 
-let rec mediumStrategies = sudoku => {
-  let originalSudoku = [...sudoku]
-  let sudoku =
-    sudoku
-    ->Strategies.intersection
-    ->Strategies.nakedPair
+  let rec easyStrategies = sudoku => {
+    let originalSudoku = [...sudoku]
+    let sudoku =
+      sudoku
+      ->Strategies.nakedSingle
+      ->Strategies.hiddenSingle
 
-  if originalSudoku == sudoku {
-    sudoku
-  } else {
-    mediumStrategies(sudoku)
+    if originalSudoku == sudoku {
+      sudoku
+    } else {
+      easyStrategies(sudoku)
+    }
   }
-}
 
-let rec hardStrategies = sudoku => {
-  let originalSudoku = [...sudoku]
-  let sudoku = sudoku->Strategies.hiddenPair
+  let rec mediumStrategies = sudoku => {
+    let originalSudoku = [...sudoku]
+    let sudoku =
+      sudoku
+      ->Strategies.intersection
+      ->Strategies.nakedPair
 
-  if originalSudoku == sudoku {
-    sudoku
-  } else {
-    hardStrategies(sudoku)
+    if originalSudoku == sudoku {
+      sudoku
+    } else {
+      mediumStrategies(sudoku)
+    }
   }
-}
 
-sudoku
-->easyStrategies
-->mediumStrategies
-->hardStrategies
-->Utilities.toRows
-->Js.log
+  let rec hardStrategies = sudoku => {
+    let originalSudoku = [...sudoku]
+    let sudoku = sudoku->Strategies.hiddenPair
+
+    if originalSudoku == sudoku {
+      sudoku
+    } else {
+      hardStrategies(sudoku)
+    }
+  }
+
+  sudoku
+  ->easyStrategies
+  ->mediumStrategies
+  ->hardStrategies
+  // ->Utilities.toRows
+  // ->Js.log
+}
