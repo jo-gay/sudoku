@@ -50,7 +50,7 @@ let make = () => {
     <div className="grid content-start gap-1 grid-cols-9">
       {values_disp}
     </div>
-    <div className="my-4">
+    <div className="my-4 flex gap-2 justify-between">
       <Button onClick={_ => {
         let solution = values_raw->Solver.solve
         Console.log("solution: " ++ Array.join(Array.map(solution, val => val->Int.toString), ", "))
@@ -59,6 +59,30 @@ let make = () => {
         })
       }}>
         {React.string(`Solve`)}
+      </Button>
+      <Button onClick={_ => {
+        set_values_raw(_oldValues=>{
+          Belt.Array.copy(values_initial)
+        })
+      }}>
+        {React.string(`Reset`)}
+      </Button>
+      <Button onClick={_ => {
+        set_values_raw(_oldValues=>{
+          Belt.Array.copy(
+            [0, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0, 0, 0, 0,
+             ])
+        })
+      }}>
+        {React.string(`Clear`)}
       </Button>
     </div>
   </div>

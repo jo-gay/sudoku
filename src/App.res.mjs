@@ -131,16 +131,108 @@ function App(props) {
         children: match$1[0],
         className: "grid content-start gap-1 grid-cols-9"
       }),
-      JsxRuntime.jsx("div", {
-        children: JsxRuntime.jsx(Button.make, {
-          children: `Solve`,
-          onClick: param => {
-            let solution = Solver.solve(values_raw);
-            console.log("solution: " + solution.map(val => val.toString()).join(", "));
-            set_values_raw(_oldValues => solution.slice(0));
-          }
-        }),
-        className: "my-4"
+      JsxRuntime.jsxs("div", {
+        children: [
+          JsxRuntime.jsx(Button.make, {
+            children: `Solve`,
+            onClick: param => {
+              let solution = Solver.solve(values_raw);
+              console.log("solution: " + solution.map(val => val.toString()).join(", "));
+              set_values_raw(_oldValues => solution.slice(0));
+            }
+          }),
+          JsxRuntime.jsx(Button.make, {
+            children: `Reset`,
+            onClick: param => set_values_raw(_oldValues => values_initial.slice(0))
+          }),
+          JsxRuntime.jsx(Button.make, {
+            children: `Clear`,
+            onClick: param => set_values_raw(_oldValues => [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ].slice(0))
+          })
+        ],
+        className: "my-4 flex gap-2 justify-between"
       })
     ],
     className: "max-w-1200"
